@@ -1,16 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import css from './Section.module.css';
+import React from 'react';
+import { Wrapper, Title } from './Styled';
 
-export const Section = ({ title, children }) => {
+function Section({ title, children }) {
   return (
-    <section>
-      <h1 className={css.titleSection}>{title} </h1>
+    <Wrapper>
+      <Title>{title}</Title>
       {children}
-    </section>
+    </Wrapper>
   );
-};
+}
 
 Section.propTypes = {
   title: PropTypes.string.isRequired,
 };
+
+export default Section;

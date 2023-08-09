@@ -1,31 +1,33 @@
 import React from 'react';
-import css from './Statistics.module.css';
+import { List, Span, Li } from './Styled';
+import Notification from 'components/Notification/Notification';
 import PropTypes from 'prop-types';
 
-export const Statistics = ({
-  good,
-  neutral,
-  bad,
-  total,
-  positivePercentage,
-}) => {
+function Statistics(props) {
   return (
-    <div>
-      <p className={css.textStatistics}> Good: {good}</p>
-      <p className={css.textStatistics}> Neutral: {neutral}</p>
-      <p className={css.textStatistics}> Bad: {bad}</p>
-      <p className={css.textStatistics}>Total: {total} </p>
-      <p className={css.textStatistics}>
-        Positive feedback: {positivePercentage}%
-      </p>
-    </div>
+    <>
+      {props.total === 0 ? (
+        <Notification message="There is no feedback" />
+      ) : (
+        <List>
+          {Object.keys(props).map(key => (
+            <Li key={key}>
+              {key}: <Span>{props[key]}</Span>
+              {key === 'positivePercentage' && <>%</>}
+            </Li>
+          ))}
+        </List>
+      )}
+    </>
   );
-};
+}
 
 Statistics.propTypes = {
   good: PropTypes.number.isRequired,
   neutral: PropTypes.number.isRequired,
   bad: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  positivePercentage: PropTypes.string.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
 };
+
+export default Statistics;
